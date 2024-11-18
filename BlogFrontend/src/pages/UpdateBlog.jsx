@@ -5,17 +5,18 @@ const UpdateBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [blog, setBlog] = useState({ title: "", content: "", author: "" });
+  const [BASE_URL] = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/blogs/${id}`)
+    fetch(`${BASE_URL}/${id}`)
       .then((response) => response.json())
       .then((data) => setBlog(data));
-  }, [id]);
+  }, [id, BASE_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch(`http://localhost:5000/blogs/${id}`, {
+    await fetch(`${BASE_URL}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
@@ -25,8 +26,8 @@ const UpdateBlog = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl mb-4">Blogu Güncelle</h1>
+    <div className="container p-4 mx-auto">
+      <h1 className="mb-4 text-3xl">Blogu Güncelle</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

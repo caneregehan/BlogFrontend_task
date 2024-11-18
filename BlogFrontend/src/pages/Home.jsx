@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/blogs`)
+    fetch(`${BASE_URL}`)
       .then((response) => response.json())
       .then((data) => setBlogs(data));
-  }, []);
+  }, [BASE_URL]);
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/blogs/${id}`, {
+    await fetch(`${BASE_URL}/${id}`, {
       method: "DELETE",
     });
     setBlogs(blogs.filter((blog) => blog._id !== id));
@@ -25,14 +26,14 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl mb-4">Bloglar</h1>
-      <Link to="/new" className="btn btn-primary mb-4">
+    <div className="container p-4 mx-auto">
+      <h1 className="mb-4 text-3xl">Bloglar</h1>
+      <Link to="/new" className="mb-4 btn btn-primary">
         Yeni Blog Yaz
       </Link>
       <ul>
         {blogs.map((blog) => (
-          <li key={blog._id} className="mb-4 p-4 border rounded">
+          <li key={blog._id} className="p-4 mb-4 border rounded">
             <h2 className="text-xl">{blog.title}</h2>
             <p>{blog.content.substring(0, 100)}...</p>
             <div className="flex justify-between mt-2">
