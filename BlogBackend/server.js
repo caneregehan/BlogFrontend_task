@@ -19,13 +19,18 @@ mongoose
   .catch((err) => console.log(err));
 
 // Blog Model
-const BlogSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  author: String,
-  category: String,
-  author_title: String,
-});
+const BlogSchema = new mongoose.Schema(
+  {
+    title: String,
+    content: String,
+    category: String,
+    author: String,
+    author_title: String,
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const Blog = mongoose.model("Blog", BlogSchema);
 

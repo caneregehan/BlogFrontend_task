@@ -21,8 +21,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleEdit = (id) => {
-    // Düzenleme sayfasına yönlendir
-    navigate(`/edit/${id}`);
+    navigate(`/update/${id}`);
   };
 
   return (
