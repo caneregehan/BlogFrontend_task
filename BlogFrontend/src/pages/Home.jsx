@@ -26,37 +26,44 @@ const Home = () => {
   };
 
   return (
-    <div className="container p-4 mx-auto">
-      <h1 className="mb-4 text-3xl">Bloglar</h1>
-      <Link to="/new" className="mb-4 btn btn-primary">
-        Yeni Blog Yaz
-      </Link>
-      <ul>
-        {blogs.map((blog) => (
-          <li key={blog._id} className="p-4 mb-4 border rounded">
-            <h2 className="text-xl">{blog.title}</h2>
-            <p>{blog.content.substring(0, 100)}...</p>
-            <div className="flex justify-between mt-2">
-              <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
-                Detay
-              </Link>
+    <>
+      <img
+        className="object-top w-full h-96"
+        src="https://cbx-prod.b-cdn.net/COLOURBOX38161888.jpg?width=1200&height=1200&quality=70"
+        alt=""
+      />
+      <div className="container mx-auto">
+        <h1 className="mb-4 text-3xl">Bloglar</h1>
+        <Link to="/new" className="mb-4">
+          Yeni Blog Yaz
+        </Link>
+        <ul>
+          {blogs.map((blog) => (
+            <li key={blog._id} className="p-4 mb-4 border rounded">
+              <h2 className="text-xl">{blog.title}</h2>
+              <p>{blog.content.substring(0, 100)}...</p>
+              <div className="flex justify-between mt-2">
+                <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
+                  Detay
+                </Link>
 
-              <button
-                onClick={() => handleDelete(blog._id)}
-                className="btn btn-danger">
-                Sil
-              </button>
+                <button
+                  onClick={() => handleDelete(blog._id)}
+                  className="btn btn-danger">
+                  Sil
+                </button>
 
-              <button
-                onClick={() => handleEdit(blog._id)}
-                className="btn btn-danger">
-                Düzenle
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+                <button
+                  onClick={() => handleEdit(blog._id)}
+                  className="btn btn-danger">
+                  Düzenle
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 
