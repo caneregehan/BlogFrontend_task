@@ -6,22 +6,20 @@ const BlogDropdown = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // Arama query'si
+  const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Blogları API'den çek
   useEffect(() => {
     fetch(BASE_URL)
       .then((response) => response.json())
       .then((data) => {
         setBlogs(data);
-        setFilteredBlogs(data); // Başlangıçta tüm blogları göster
+        setFilteredBlogs(data);
       })
       .catch((error) => console.error("Hata:", error));
   }, [BASE_URL]);
 
-  // Arama query'si değiştiğinde filtreleme
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
@@ -34,7 +32,6 @@ const BlogDropdown = () => {
     setIsDropdownOpen(query.length > 0); // Arama yapıldığında dropdown'u aç
   };
 
-  // Dropdown dışında bir yere tıklama kontrolü
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -48,10 +45,9 @@ const BlogDropdown = () => {
     };
   }, []);
 
-  // Blog tıklanınca inputu temizle ve dropdown'ı kapat
-  const handleBlogClick = (blogId) => {
-    setSearchQuery(""); // Arama inputunu temizle
-    setIsDropdownOpen(false); // Dropdown'ı kapat
+  const handleBlogClick = () => {
+    setSearchQuery("");
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -61,7 +57,7 @@ const BlogDropdown = () => {
         type="text"
         value={searchQuery}
         onChange={handleSearchChange}
-        className="p-1 pr-12 pl-5 text-xl backdrop-blur-3xl backdrop-brightness-30 text-white placeholder:text-gray-200 bg-transparent border border-[#8197a3] rounded-xl w-full"
+        className="p-1 pr-12 pl-5 text-xl backdrop-blur-3xl backdrop-brightness-30 text-white placeholder:text-gray-200  bg-transparent border border-[#8197a3] rounded-xl w-full"
         placeholder="Search for blog"
       />
 
@@ -74,8 +70,7 @@ const BlogDropdown = () => {
                 to={`/blogs/${blog._id}`}
                 key={blog._id}
                 className="block px-4 py-2 text-gray-800 cursor-pointer hover:bg-gray-200"
-                onClick={() => handleBlogClick(blog._id)} // Tıklama sonrası inputu temizle
-              >
+                onClick={() => handleBlogClick(blog._id)}>
                 {blog.title}
               </Link>
             ))
