@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+
+import "swiper/css";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -27,19 +31,46 @@ const Home = () => {
 
   return (
     <>
-      <img
-        className="object-top w-full h-96"
-        src="https://cbx-prod.b-cdn.net/COLOURBOX38161888.jpg?width=1200&height=1200&quality=70"
-        alt=""
-      />
-      <div className="container mx-auto">
-        <h1 className="mb-4 text-3xl">Bloglar</h1>
-        <Link to="/new" className="mb-4">
-          Yeni Blog Yaz
-        </Link>
-        <ul>
+      <Swiper
+        pagination={{
+          dynamicBullets: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper">
+        <SwiperSlide>
+          <img
+            className="object-cover w-full pt-0 h-[540px]"
+            src="https://w.wallhaven.cc/full/xl/wallhaven-xl8m1o.jpg"
+            alt=""
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            className="object-cover w-full pt-0 h-[540px]"
+            src="https://w.wallhaven.cc/full/4o/wallhaven-4oqm7m.jpg"
+            alt=""
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            className="object-cover w-full pt-0 h-[540px]"
+            src="https://w.wallhaven.cc/full/we/wallhaven-we9d66.jpg"
+            alt=""
+          />
+        </SwiperSlide>
+      </Swiper>
+      <div className="container mx-auto font-semibold">
+        <h1 className="py-3 mb-4 text-3xl text-center text-zinc-800">
+          Bloglar
+        </h1>
+        <div className="mb-5 text-right">
+          <Link to="/new" className="btn btn-primary">
+            Yeni Blog Yaz
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 gap-6 mb-10 sm:grid-cols-2 lg:grid-cols-3">
           {blogs.map((blog) => (
-            <li key={blog._id} className="p-4 mb-4 border rounded">
+            <div key={blog._id} className="p-4 border rounded">
               <h2 className="text-xl">{blog.title}</h2>
               <p>{blog.content.substring(0, 100)}...</p>
               <div className="flex justify-between mt-2">
@@ -59,9 +90,9 @@ const Home = () => {
                   Düzenle
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </>
   );
