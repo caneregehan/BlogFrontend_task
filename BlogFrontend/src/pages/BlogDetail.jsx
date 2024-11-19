@@ -20,17 +20,16 @@ const BlogDetail = () => {
 
   return (
     <div className="container p-4 mx-auto ">
-      <div className="pt-16">
+      <div className="pt-16 mx-auto">
         <img
           src={`${AWS_URL}/${blog.fileName}`}
           alt={blog.title}
           className="object-cover w-full h-[540px]"
         />
         <h1 className="pt-16 mb-4 text-3xl text-center">{blog.title}</h1>
+        <p className="text-center">{blog.content}</p>
       </div>
-      <div className="mt-16">
-        <p>{blog.content}</p>
-      </div>
+
       <p className="pt-12">
         <strong>Yazar:</strong> {blog.author}
       </p>
