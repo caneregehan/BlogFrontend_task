@@ -4,7 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 const UpdateBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [blog, setBlog] = useState({ title: "", content: "", author: "" });
+  const [blog, setBlog] = useState({
+    title: "",
+    content: "",
+    author: "",
+  });
   const [BASE_URL] = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {

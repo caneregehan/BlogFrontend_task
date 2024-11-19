@@ -16,34 +16,6 @@ const NewBlog = () => {
     return `${randomString}.${extension}`;
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   let fileName = null;
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("title", title);
-  //     formData.append("content", content);
-  //     formData.append("author", author);
-
-  //     if (file) {
-  //       fileName = generateFileName(file);
-  //       !fileName && console.log("Error generating file name");
-  //       const res = await uploadToSignedURL(file, fileName);
-  //       console.log(res);
-  //     }
-  //     fileName && formData.append("fileName", fileName);
-
-  //     await fetch(`${BASE_URL}`, {
-  //       method: "POST",
-  //       body: formData,
-  //     });
-
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,7 +32,7 @@ const NewBlog = () => {
         title,
         content,
         author,
-        fileName, // fileName yalnızca yükleme başarılı olursa gönderilir
+        fileName, // Eğer dosya yüklenmediyse null olacak
       };
 
       const response = await fetch(`${BASE_URL}`, {
@@ -92,6 +64,7 @@ const NewBlog = () => {
           className="input"
           required
         />
+
         <textarea
           placeholder="İçerik"
           value={content}

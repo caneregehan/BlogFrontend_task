@@ -5,6 +5,7 @@ const BlogDetail = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const AWS_URL = import.meta.env.VITE_AWS_URL;
   useEffect(() => {
     try {
       fetch(`${BASE_URL}/${id}`)
@@ -21,7 +22,7 @@ const BlogDetail = () => {
     <div className="container p-4 mx-auto ">
       <div className="pt-16">
         <img
-          src={`https://s3.eu-north-1.amazonaws.com/my.task00/${blog.fileName}`}
+          src={`${AWS_URL}/${blog.fileName}`}
           alt={blog.title}
           className="object-cover w-full h-[540px]"
         />

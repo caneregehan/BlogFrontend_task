@@ -9,6 +9,7 @@ import "swiper/css";
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const AWS_URL = import.meta.env.VITE_AWS_URL;
 
   useEffect(() => {
     fetch(`${BASE_URL}`)
@@ -76,7 +77,7 @@ const Home = () => {
               <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
                 <div>
                   <img
-                    src={`https://s3.eu-north-1.amazonaws.com/my.task00/${blog.fileName}`}
+                    src={`${AWS_URL}/${blog.fileName}`}
                     alt={blog.title}
                     className="object-fill w-full h-[270px]"
                   />

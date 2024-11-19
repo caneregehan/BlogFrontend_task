@@ -25,9 +25,7 @@ const BlogSchema = new mongoose.Schema(
   {
     title: String,
     content: String,
-    category: String,
     author: String,
-    author_title: String,
     fileName: String,
   },
   {
@@ -48,13 +46,6 @@ app.get("/blogs/:id", async (req, res) => {
   res.json(blog);
 });
 
-// app.post("/blogs", async (req, res) => {
-//   const data = Object.fromEntries(req.body);
-//   const newBlog = new Blog(data);
-//   console.log(data);
-//   await newBlog.save();
-//   res.json(newBlog);
-// });
 app.post("/blogs", async (req, res) => {
   try {
     const { title, content, author, fileName } = req.body;
@@ -90,7 +81,6 @@ app.delete("/blogs/:id", async (req, res) => {
   res.json({ message: "Blog deleted" });
 });
 
-// Server
 app.listen(5000, () => {
   console.log("Server running on http://localhost:5000");
 });
