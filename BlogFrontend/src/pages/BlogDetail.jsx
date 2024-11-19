@@ -35,7 +35,9 @@ const BlogDetail = () => {
         <strong>Yazar:</strong> {blog.author}
       </p>
       <div className="flex mt-5 mb-48">
-        <Link to="/" className="p-2 text-xl bg-gray-300 rounded-xl">
+        <Link
+          to="/"
+          className="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center  dark:focus:ring-gray-600 me-2 mb-2">
           Bloglara Geri Dön
         </Link>
       </div>

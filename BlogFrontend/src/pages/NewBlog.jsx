@@ -61,7 +61,7 @@ const NewBlog = () => {
           placeholder="Başlık"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="input"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
         />
 
@@ -69,7 +69,7 @@ const NewBlog = () => {
           placeholder="İçerik"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="input"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
         />
         <input
@@ -77,21 +77,65 @@ const NewBlog = () => {
           placeholder="Yazar"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          className="input"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
         />
 
-        <input
+        {/* <input
           type="file"
           accept="application/png, application/jpeg"
           onChange={(event) => {
             const selectedFile = event.currentTarget.files[0];
             setFile(selectedFile);
           }}
-          className="block mb-2 text-sm text-gray-500 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 file:cursor-pointer"
-        />
+          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        /> */}
+        <div className="grid w-full gap-3 border border-gray-300 border-dashed py-9 bg-gray-50 rounded-2xl">
+          <div className="grid gap-1">
+            <svg
+              className="mx-auto"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              {/* SVG content */}
+            </svg>
+            <h2 className="text-xs leading-4 text-center text-gray-400">
+              PNG, JPG veya PDF, 15 MB tan küçük dosyalarınızı yükleyin
+            </h2>
+          </div>
+          <div className="grid gap-2">
+            <h4 className="text-sm font-medium leading-snug text-center text-gray-900">
+              Dosyanızı Yükleyiniz
+            </h4>
+            <div className="flex items-center justify-center">
+              <label>
+                <input
+                  type="file"
+                  hidden
+                  accept="application/png, application/jpeg"
+                  onChange={(event) => {
+                    const selectedFile = event.currentTarget.files[0];
+                    setFile(selectedFile);
+                  }}
+                />
+                <div className="flex flex-col items-center justify-center px-2 mx-auto text-xs font-semibold leading-4 text-white bg-indigo-600 rounded-full shadow cursor-pointer w-28 h-9 focus:outline-none">
+                  Choose File
+                </div>
+                <div>
+                  <p className="flex pt-5 text-xs text-center text-gray-500">
+                    {file ? file.name : "No file selected"}
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="submit"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           Yayınla
         </button>
       </form>
