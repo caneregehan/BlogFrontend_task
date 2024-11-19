@@ -3,18 +3,17 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const MONGO_URI = import.meta.env.MONGO_URI;
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 mongoose
-  .connect(
-    "mongodb+srv://caneregehan:caneregehan@cluster0.1quyh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(`${MONGO_URI}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
