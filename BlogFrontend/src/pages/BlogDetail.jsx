@@ -19,12 +19,21 @@ const BlogDetail = () => {
 
   return (
     <div className="container p-4 mx-auto">
-      <h1 className="mb-4 text-3xl">{blog.title}</h1>
-      <p>{blog.content}</p>
+      <div className="pt-16">
+        <img
+          src={`https://s3.eu-north-1.amazonaws.com/my.task00/${blog.fileName}`}
+          alt={blog.title}
+          className="object-cover w-full h-[540px]"
+        />
+        <h1 className="pt-16 mb-4 text-3xl text-center">{blog.title}</h1>
+      </div>
+      <div className="mt-16">
+        <p>{blog.content}</p>
+      </div>
       <p className="pt-12">
         <strong>Yazar:</strong> {blog.author}
       </p>
-      <div className="flex mt-5">
+      <div className="flex mt-5 mb-48">
         <Link to="/" className="p-2 text-xl bg-gray-300 rounded-xl">
           Bloglara Geri Dön
         </Link>

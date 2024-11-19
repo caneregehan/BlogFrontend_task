@@ -74,6 +74,13 @@ const Home = () => {
               key={blog._id}
               className="p-4 text-center bg-gray-300 border font-extralight rounded-3xl">
               <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
+                <div>
+                  <img
+                    src={`https://s3.eu-north-1.amazonaws.com/my.task00/${blog.fileName}`}
+                    alt={blog.title}
+                    className="object-fill w-full h-[270px]"
+                  />
+                </div>
                 <h2 className="text-xl font-bold text-center">{blog.title}</h2>
                 <p className="pt-5 ">{blog?.content?.substring(0, 100)}...</p>
               </Link>
