@@ -70,9 +70,13 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-1 gap-6 mb-10 sm:grid-cols-2 lg:grid-cols-3">
           {blogs.map((blog) => (
-            <div key={blog._id} className="p-4 border rounded">
-              <h2 className="text-xl">{blog.title}</h2>
-              <p>{blog.content.substring(0, 100)}...</p>
+            <div
+              key={blog._id}
+              className="p-4 text-center bg-gray-300 border font-extralight rounded-3xl">
+              <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
+                <h2 className="text-xl font-bold text-center">{blog.title}</h2>
+                <p className="pt-5 ">{blog?.content?.substring(0, 100)}...</p>
+              </Link>
               <div className="flex justify-between mt-2">
                 <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
                   Detay

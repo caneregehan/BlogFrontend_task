@@ -2,17 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
-const MONGO_URI = import.meta.env.MONGO_URI;
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const MONGO_URI = process.env.MONGO_URI;
+
 mongoose
-  .connect(`${MONGO_URI}`, {
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    dbName: "test",
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
@@ -25,6 +28,7 @@ const BlogSchema = new mongoose.Schema(
     category: String,
     author: String,
     author_title: String,
+    fileName: String,
   },
   {
     timestamps: true,
@@ -44,10 +48,34 @@ app.get("/blogs/:id", async (req, res) => {
   res.json(blog);
 });
 
+// app.post("/blogs", async (req, res) => {
+//   const data = Object.fromEntries(req.body);
+//   const newBlog = new Blog(data);
+//   console.log(data);
+//   await newBlog.save();
+//   res.json(newBlog);
+// });
 app.post("/blogs", async (req, res) => {
-  const newBlog = new Blog(req.body);
-  await newBlog.save();
-  res.json(newBlog);
+  try {
+    const { title, content, author, fileName } = req.body;
+
+    if (!title || !content || !author) {
+      return res.status(400).json({ message: "Eksik alanlar mevcut!" });
+    }
+
+    const newBlog = new Blog({
+      title,
+      content,
+      author,
+      fileName,
+    });
+
+    await newBlog.save();
+    res.json(newBlog);
+  } catch (error) {
+    console.error("Error creating blog:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 app.put("/blogs/:id", async (req, res) => {

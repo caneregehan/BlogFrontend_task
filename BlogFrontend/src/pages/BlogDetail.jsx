@@ -5,11 +5,14 @@ const BlogDetail = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-
   useEffect(() => {
-    fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
-      .then((data) => setBlog(data));
+    try {
+      fetch(`${BASE_URL}/${id}`)
+        .then((response) => response.json())
+        .then((data) => setBlog(data));
+    } catch (error) {
+      console.log(error);
+    }
   }, [id, BASE_URL]);
 
   if (!blog) return <div>Loading...</div>;
