@@ -18,7 +18,7 @@ const BlogDetail = () => {
   if (!blog) return <div>Loading...</div>;
 
   return (
-    <div className="container p-4 mx-auto">
+    <div className="container p-4 mx-auto ">
       <div className="pt-16">
         <img
           src={`https://s3.eu-north-1.amazonaws.com/my.task00/${blog.fileName}`}
