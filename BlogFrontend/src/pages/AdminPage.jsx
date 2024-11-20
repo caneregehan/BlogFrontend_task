@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import Swal from "sweetalert2"; // SweetAlert2 importu
 
 import "swiper/css";
 
@@ -28,6 +29,24 @@ const Home = () => {
 
   const handleEdit = (id) => {
     navigate(`/update/${id}`);
+  };
+
+  const confirmDelete = (blog_id) => {
+    Swal.fire({
+      title: "Emin misiniz?",
+      text: "Bu blogu silmek üzeresiniz. Bu işlem geri alınamaz!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Evet, sil!",
+      cancelButtonText: "İptal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(blog_id); // blog._id burada kullanılmalı
+        Swal.fire("Silindi!", "Blog başarıyla silindi.", "success");
+      }
+    });
   };
 
   return (
@@ -60,6 +79,7 @@ const Home = () => {
           />
         </SwiperSlide>
       </Swiper>
+
       <div className="container mx-auto font-semibold">
         <h1 className="py-3 pt-12 mb-4 text-3xl text-center text-zinc-800">
           Bloglar
@@ -71,42 +91,57 @@ const Home = () => {
             Yeni Blog Yaz
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 mb-10 sm:grid-cols-2 lg:grid-cols-3">
+
+        <div className="grid grid-cols-1 gap-6 mb-10 sm:grid-cols-2 lg:grid-cols-3 ">
           {blogs
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((blog) => (
               <div
                 key={blog._id}
-                className="p-4 text-center bg-gray-300 border font-extralight rounded-3xl">
+                className="max-w-5xl bg-white border border-gray-200 rounded-lg shadow ">
                 <Link to={`/blogs/${blog._id}`} className="btn btn-secondary">
-                  <div>
+                  <div className="relative">
                     <img
                       src={`${AWS_URL}/${blog.fileName}`}
                       alt={blog.title}
-                      className="object-fill w-full h-[270px]"
+                      className="object-fill w-full h-[270px] rounded-t-lg"
                     />
+                    <p className="absolute px-2 py-1 text-white bg-black bg-opacity-50 rounded top-2 left-2">
+                      {blog.author}
+                    </p>
                   </div>
-                  <h2 className="text-xl font-bold text-center">
+
+                  <div className="flex gap-5 px-8 my-4 font-light justify-stretch ">
+                    <h3 className="">
+                      <span className="pr-2">Yayın Tarihi:</span>
+                      {new Date(blog.createdAt).toLocaleDateString("tr-TR")}
+                    </h3>
+                  </div>
+
+                  <h2 className="px-8 mb-2 text-2xl font-medium tracking-tight text-left text-gray-900 ">
                     {blog.title}
                   </h2>
-                  <p className="pt-5">{blog?.content?.substring(0, 60)}...</p>
+                  <p className="px-8 mb-3 font-normal text-gray-600 ">
+                    {blog?.content?.substring(0, 60)}...
+                  </p>
                 </Link>
-                <div className="flex justify-between mt-6">
+
+                <div className="items-center mx-auto my-5 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800">
                   <Link
                     to={`/blogs/${blog._id}`}
-                    className="px-4 py-2 ml-2 text-sm text-center text-white transition-all border border-transparent rounded-md shadow-md bg-amber-600 hover:shadow-lg focus:bg-amber-700 focus:shadow-none active:bg-amber-700 hover:bg-amber-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    className="px-4 py-2 ml-2 text-sm text-center text-white transition-all bg-gray-600 border border-transparent rounded-md shadow-md hover:shadow-lg focus:bg-gray-700 focus:shadow-none active:bg-gray-700 hover:bg-gray-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                     Detay
                   </Link>
 
                   <button
-                    onClick={() => handleDelete(blog._id)}
-                    className="px-4 py-2 ml-2 text-sm text-center text-white transition-all bg-red-600 border border-transparent rounded-md shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    onClick={() => confirmDelete(blog._id)}
+                    className="px-4 py-2 ml-2 text-sm text-center text-white transition-all bg-gray-600 border border-transparent rounded-md shadow-md hover:shadow-lg focus:bg-gray-700 focus:shadow-none active:bg-gray-700 hover:bg-gray-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                     Sil
                   </button>
 
                   <button
                     onClick={() => handleEdit(blog._id)}
-                    className="px-4 py-2 ml-2 text-sm text-center text-white transition-all bg-green-600 border border-transparent rounded-md shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    className="px-4 py-2 ml-2 text-sm text-center text-white transition-all bg-gray-600 border border-transparent rounded-md shadow-md hover:shadow-lg focus:bg-gray-700 focus:shadow-none active:bg-gray-700 hover:bg-gray-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                     Düzenle
                   </button>
                 </div>
