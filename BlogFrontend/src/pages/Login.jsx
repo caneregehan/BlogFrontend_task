@@ -169,7 +169,7 @@ export default function Login() {
           setError("Kullanıcı adı veya şifre yanlış.");
         }
       } else {
-        setError("Bir hata oluştu. Lütfen tekrar deneyin.");
+        setError("Kullanıcı adı veya şifre yanlış.");
       }
     } catch (error) {
       console.error("Error:", error);
