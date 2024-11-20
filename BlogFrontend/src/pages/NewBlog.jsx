@@ -81,15 +81,6 @@ const NewBlog = () => {
           required
         />
 
-        {/* <input
-          type="file"
-          accept="application/png, application/jpeg"
-          onChange={(event) => {
-            const selectedFile = event.currentTarget.files[0];
-            setFile(selectedFile);
-          }}
-          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        /> */}
         <div className="grid w-full gap-3 border border-gray-300 border-dashed py-9 bg-gray-50 rounded-2xl">
           <div className="grid gap-1">
             <svg
@@ -98,9 +89,7 @@ const NewBlog = () => {
               height="40"
               viewBox="0 0 40 40"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              {/* SVG content */}
-            </svg>
+              xmlns="http://www.w3.org/2000/svg"></svg>
             <h2 className="text-xs leading-4 text-center text-gray-400">
               PNG, JPG veya PDF, 15 MB tan küçük dosyalarınızı yükleyin
             </h2>

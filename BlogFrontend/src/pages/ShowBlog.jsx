@@ -43,7 +43,12 @@ const ShowBlog = () => {
               </p>
 
               <p className="absolute px-4 py-2 text-xl text-white bg-transparent rounded-full bg-opacity-10 bottom-4 left-8">
-                {blog?.content?.substring(0, 60)}...
+                {blog?.content?.substring(0, 60)}{" "}
+                <Link to={`/blogs/${blog._id}`}>
+                  <span className="text-sm font-light underline">
+                    Daha Fazla
+                  </span>
+                </Link>
               </p>
             </div>
           </SwiperSlide>

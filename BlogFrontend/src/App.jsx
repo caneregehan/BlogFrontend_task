@@ -8,28 +8,56 @@ import AdminPage from "./pages/AdminPage";
 import BlogDetail from "./pages/BlogDetail";
 import NewBlog from "./pages/NewBlog";
 import UpdateBlog from "./pages/UpdateBlog";
-import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
-import OtherNavbar from "./components/OtherNavbar";
-import Register from "./pages/Register"; // Assuming you have a Register page
+import Register from "./pages/Register";
 import ShowBlog from "./pages/ShowBlog";
+import NotFound from "./pages/NotFound";
+import Navbar from "./components/Navbar";
+import OtherNavbar from "./components/OtherNavbar";
+
+const getNavbarComponent = (location) => {
+  const otherNavbarRoutes = ["/register", "/new", "/update"];
+  const hiddenNavbarRoutes = ["/login"];
+  const definedRoutes = [
+    "/",
+    "/register",
+    "/new",
+    "/update",
+    "/blogs",
+    "/login",
+  ];
+
+  const isValidRoute = definedRoutes.some((route) =>
+    route === "/blogs"
+      ? location.pathname.startsWith("/blogs")
+      : route === location.pathname
+  );
+
+  if (!isValidRoute) {
+    return null;
+  }
+
+  if (location.pathname.startsWith("/blogs")) {
+    return <OtherNavbar />;
+  }
+
+  if (hiddenNavbarRoutes.includes(location.pathname)) {
+    return null;
+  }
+
+  if (otherNavbarRoutes.includes(location.pathname)) {
+    return <OtherNavbar />;
+  }
+
+  return <Navbar />;
+};
 
 const AppContent = () => {
   const location = useLocation();
 
-  // Check if current path is either /login or /register
-  const isAuthPage =
-    location.pathname === "/login" || location.pathname === "/register";
-
   return (
     <>
-      {!isAuthPage &&
-        (location.pathname === "/admin" || location.pathname === "/" ? (
-          <Navbar />
-        ) : (
-          <OtherNavbar />
-        ))}
-
+      {getNavbarComponent(location)}{" "}
       <Routes>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
@@ -38,6 +66,7 @@ const AppContent = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<ShowBlog />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

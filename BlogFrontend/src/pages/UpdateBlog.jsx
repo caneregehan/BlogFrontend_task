@@ -1,82 +1,21 @@
-// import { useState, useEffect } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
-
-// const UpdateBlog = () => {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const [blog, setBlog] = useState({
-//     title: "",
-//     content: "",
-//     author: "",
-//   });
-//   const [BASE_URL] = import.meta.env.VITE_BASE_URL;
-
-//   useEffect(() => {
-//     fetch(`${BASE_URL}/${id}`)
-//       .then((response) => response.json())
-//       .then((data) => setBlog(data));
-//   }, [id, BASE_URL]);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     await fetch(`${BASE_URL}/${id}`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(blog),
-//     });
-
-//     navigate(`/blogs/${id}`);
-//   };
-
-//   return (
-//     <div className="container p-4 mx-auto">
-//       <h1 className="mb-4 text-3xl">Blogu Güncelle</h1>
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         <input
-//           type="text"
-//           value={blog.title}
-//           onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-//           className="input"
-//           required
-//         />
-//         <textarea
-//           value={blog.content}
-//           onChange={(e) => setBlog({ ...blog, content: e.target.value })}
-//           className="input"
-//           required
-//         />
-//         <input
-//           type="text"
-//           value={blog.author}
-//           onChange={(e) => setBlog({ ...blog, author: e.target.value })}
-//           className="input"
-//           required
-//         />
-//         <button type="submit" className="btn btn-primary">
-//           Güncelle
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default UpdateBlog;
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
+import { uploadToSignedURL } from "../lib/action"; // uploadToSignedURL fonksiyonunu import edin
 
 const UpdateBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const AWS_URL = import.meta.env.VITE_AWS_URL;
+
   const [blog, setBlog] = useState({
     title: "",
     content: "",
     author: "",
+    fileName: null,
   });
-  const [file, setFile] = useState(null); // To handle the uploaded image file
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     fetch(`${BASE_URL}/${id}`)
@@ -84,49 +23,51 @@ const UpdateBlog = () => {
       .then((data) => setBlog(data));
   }, [id, BASE_URL]);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const generateFileName = (file) => {
+    const extension = file.name.split(".").pop();
+    const randomString = Math.random().toString(36).substring(2, 7);
+    return `${randomString}.${extension}`;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Show confirmation dialog using SweetAlert2
     const result = await Swal.fire({
       title: "Blogu Güncellemek İstediğinizden Emin Misiniz?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Evet, Güncelle",
       cancelButtonText: "İptal",
-      reverseButtons: true, // This will position the cancel button on the left
+      reverseButtons: true,
     });
 
     if (result.isConfirmed) {
-      let updatedBlog = { ...blog };
+      try {
+        let updatedBlog = { ...blog };
 
-      // If a file is selected, upload it
-      if (file) {
-        const formData = new FormData();
-        formData.append("file", file);
+        if (file) {
+          const fileName = generateFileName(file);
+          const uploadedFileName = await uploadToSignedURL(file, fileName);
 
-        const imageUploadResponse = await fetch(`${AWS_URL}/upload`, {
-          method: "POST",
-          body: formData,
+          if (!uploadedFileName) {
+            throw new Error("Dosya yükleme başarısız.");
+          }
+
+          updatedBlog.fileName = uploadedFileName;
+        }
+
+        await fetch(`${BASE_URL}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedBlog),
         });
 
-        const imageData = await imageUploadResponse.json();
-        updatedBlog.fileName = imageData.fileName; // Set the uploaded file name
+        Swal.fire("Güncellendi!", "Blog başarıyla güncellendi.", "success");
+        navigate(`/blogs/${id}`);
+      } catch (error) {
+        console.error("Hata:", error);
+        Swal.fire("Hata", "Blog güncellenirken bir hata oluştu.", "error");
       }
-
-      // Proceed with the blog update
-      await fetch(`${BASE_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedBlog),
-      });
-
-      Swal.fire("Güncellendi!", "Blog başarıyla güncellendi.", "success"); // Success message
-      navigate(`/blogs/${id}`);
     }
   };
 
@@ -135,20 +76,10 @@ const UpdateBlog = () => {
       <div className="mb-16 text-center">
         {blog.fileName && (
           <div>
-            <a
-              href="javascript:void(0)"
-              onClick={() => document.getElementById("fileInput").click()}>
-              <img
-                src={`${AWS_URL}/${blog.fileName}`}
-                alt="Blog Image"
-                className="inline-block cursor-pointer w-52"
-              />
-            </a>
-            <input
-              type="file"
-              id="fileInput"
-              onChange={handleFileChange}
-              className="hidden"
+            <img
+              src={`${AWS_URL}/${blog.fileName}`}
+              alt="Blog Image"
+              className="inline-block w-52"
             />
           </div>
         )}
@@ -182,14 +113,13 @@ const UpdateBlog = () => {
             />
           </div>
 
-          {/* Image upload field */}
           <div>
             <label className="block mb-2 text-sm text-gray-800">
               Blog Resmi
             </label>
             <input
               type="file"
-              onChange={handleFileChange}
+              onChange={(e) => setFile(e.target.files[0])}
               className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
             />
           </div>

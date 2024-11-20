@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import Swal from "sweetalert2"; // SweetAlert2 importu
+import Swal from "sweetalert2";
 
 import "swiper/css";
 
@@ -104,7 +104,7 @@ const Home = () => {
                     <img
                       src={`${AWS_URL}/${blog.fileName}`}
                       alt={blog.title}
-                      className="object-fill w-full h-[270px] rounded-t-lg"
+                      className="object-cover w-full h-[270px] rounded-t-lg"
                     />
                     <p className="absolute px-2 py-1 text-white bg-black bg-opacity-50 rounded top-2 left-2">
                       {blog.author}
