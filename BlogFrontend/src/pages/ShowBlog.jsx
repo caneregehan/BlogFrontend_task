@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 
@@ -16,6 +18,37 @@ const ShowBlog = () => {
 
   return (
     <>
+      <Swiper
+        pagination={{
+          dynamicBullets: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper">
+        {blogs.map((blog, index) => (
+          <SwiperSlide key={index} className="relative">
+            <Link to={`/blogs/${blog._id}`}>
+              <img
+                className="object-cover w-full h-[768px]"
+                src={`${AWS_URL}/${blog.fileName}`}
+                alt={`Image ${index + 1}`}
+              />
+            </Link>
+            <div className="relative">
+              <p className="absolute px-4 py-4 text-xl text-white bg-transparent rounded-full bg-opacity-10 backdrop-blur-3xl bottom-28 left-8">
+                {blog.author}
+              </p>
+
+              <p className="absolute px-4 text-2xl font-semibold text-white bg-opacity-50 rounded bottom-16 left-8">
+                {blog.title}
+              </p>
+
+              <p className="absolute px-4 py-2 text-xl text-white bg-transparent rounded-full bg-opacity-10 bottom-4 left-8">
+                {blog?.content?.substring(0, 60)}...
+              </p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <div className="container mx-auto font-semibold">
         <h1 className="py-3 mt-16 mb-4 text-3xl text-center text-zinc-800">
           Bloglar

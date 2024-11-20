@@ -7,8 +7,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchBar from "./SearchBar";
 
 const navigation = [
-  { name: "Anasayfa", href: "/blogs", current: true },
-  { name: "Bloglar", href: "/blogs", current: false },
+  { name: "Anasayfa", href: "/", current: true },
   { name: "Blog Ekle", href: "/new", current: false },
 ];
 

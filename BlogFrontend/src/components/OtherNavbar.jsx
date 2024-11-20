@@ -2,17 +2,12 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchBar from "./SearchBar";
 
 const navigation = [
   { name: "Anasayfa", href: "/", current: true },
-  { name: "Bloglar", href: "/", current: false },
   { name: "Blog Ekle", href: "/new", current: false },
 ];
 
