@@ -25,6 +25,7 @@ const getNavbarComponent = (location) => {
     "/update",
     "/blogs",
     "/login",
+    "/admin",
   ];
 
   const isValidRoute = definedRoutes.some((route) =>
