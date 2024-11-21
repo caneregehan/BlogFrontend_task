@@ -15,7 +15,7 @@ const SideBlogItem = ({ blog }) => {
           className="object-cover h-full py-0 my-0 rounded-xl aspect-square"
         />
         <div className="flex flex-col w-full py-1 ml-2">
-          <h6 className="my-0 leading-3">{blog?.title}</h6>
+          <h6 className="my-0 leading-5">{blog?.title}</h6>
           <p className="my-0 mt-2 text-xs font-medium text-gray-500">
             {new Date(blog.createdAt).getDate().toString().padStart(2, "0")}.
             {(new Date(blog.createdAt).getMonth() + 1)
