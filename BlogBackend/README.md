@@ -28,7 +28,7 @@ Projede kullanılan bağımlılıkları yüklemek için aşağıdaki komutu çal
 npm install
 ```
 
-Projede kullanılan bağımlılıkları yükledikten sonra projeyi öalıştırmak için aşağıdaki komutu çalıştırın:
+Projede kullanılan bağımlılıkları yükledikten sonra projeyi çalıştırmak için aşağıdaki komutu çalıştırın:
 
 ```bash
 node server.js
