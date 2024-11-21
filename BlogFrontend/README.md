@@ -44,3 +44,9 @@ JWT_EXPIRATION=<JWT'nin süresi, örn: 1d>
 ```bash
 npm install
 ```
+
+### Proje Çalıştırma Komutu:
+
+```bash
+npm run dev
+```
