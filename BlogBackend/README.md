@@ -13,12 +13,23 @@ Bu backend uygulaması, blog ve kullanıcı işlemleri için **RESTful API** hiz
 
 ---
 
-## 🚀 Projenin Kurulumu
+## 🚀 Projenin Kurulumu ve .env dosyası
 
+```bash
 MONGO_URI=<MongoDB bağlantı adresiniz>
+```
+
+```bash
 VITE_BASE_URL=<Uygulama temel URL'i>
+```
+
+```bash
 JWT_SECRET=<JWT için gizli anahtar>
+```
+
+```bash
 JWT_EXPIRATION=<JWT'nin süresi, örn: 1d>
+```
 
 ### 1. Gerekli Modüllerin Yüklenmesi
 
