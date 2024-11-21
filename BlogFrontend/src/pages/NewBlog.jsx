@@ -53,7 +53,7 @@ const NewBlog = () => {
     }
   };
   return (
-    <div className="container mx-auto pt-36">
+    <div className="container pt-20 mx-auto">
       <h1 className="mb-4 text-3xl">Yeni Blog Yaz</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -98,7 +98,7 @@ const NewBlog = () => {
             <h4 className="text-sm font-medium leading-snug text-center text-gray-900">
               Dosyanızı Yükleyiniz
             </h4>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center my-20">
               <label>
                 <input
                   type="file"

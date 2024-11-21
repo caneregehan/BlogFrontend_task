@@ -27,11 +27,14 @@ const ShowBlog = () => {
         {blogs.map((blog, index) => (
           <SwiperSlide key={index} className="relative">
             <Link to={`/blogs/${blog._id}`}>
-              <img
-                className="object-cover w-full h-[768px]"
-                src={`${AWS_URL}/${blog.fileName}`}
-                alt={`Image ${index + 1}`}
-              />
+              <div className="relative w-full h-[768px]">
+                <img
+                  className="object-cover w-full h-full"
+                  src={`${AWS_URL}/${blog.fileName}`}
+                  alt={`Image ${index + 1}`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-transparent"></div>
+              </div>
             </Link>
             <div className="relative">
               <p className="absolute px-4 py-4 text-xl text-white bg-transparent rounded-full bg-opacity-10 backdrop-blur-3xl bottom-28 left-8">

@@ -15,8 +15,9 @@ import ShowBlog from "./pages/ShowBlog";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import OtherNavbar from "./components/OtherNavbar";
+import Footer from "./components/Footer";
+import Contact from "./pages/Contact ";
 
-// PrivateRoute Componenti: Giriş yapmamış kullanıcıları yönlendiriyoruz
 // eslint-disable-next-line no-unused-vars, react/prop-types
 const PrivateRoute = ({ element, ...rest }) => {
   const token = localStorage.getItem("authToken"); // JWT token kontrolü
@@ -25,13 +26,13 @@ const PrivateRoute = ({ element, ...rest }) => {
     return <Navigate to="/login" replace />; // Token yoksa login sayfasına yönlendir
   }
 
-  return element; // Return the element directly
+  return element;
 };
 
-// Navbar Componenti Seçimi
 const getNavbarComponent = (location) => {
-  const otherNavbarRoutes = ["/register", "/new", "/update"];
-  const hiddenNavbarRoutes = ["/login"];
+  const otherNavbarRoutes = ["/new", "/update"];
+  const hiddenNavbarRoutes = ["/login", "/register"];
+
   const definedRoutes = [
     "/",
     "/register",
@@ -67,13 +68,23 @@ const getNavbarComponent = (location) => {
   return <Navbar />;
 };
 
+const getFooterComponent = (location) => {
+  const hiddenFooterRoutes = ["/login", "/register"];
+
+  if (hiddenFooterRoutes.includes(location.pathname)) {
+    return null;
+  }
+
+  return <Footer />;
+};
+
 // Uygulama İçeriği
 const AppContent = () => {
   const location = useLocation();
 
   return (
     <>
-      {getNavbarComponent(location)}{" "}
+      {getNavbarComponent(location)}
       <Routes>
         <Route
           path="/admin"
@@ -89,9 +100,11 @@ const AppContent = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<ShowBlog />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {getFooterComponent(location)}
     </>
   );
 };
