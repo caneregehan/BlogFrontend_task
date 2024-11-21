@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { uploadToSignedURL } from "../lib/action";
+import Swal from "sweetalert2";
 
 const NewBlog = () => {
   const [title, setTitle] = useState("");
@@ -19,39 +20,67 @@ const NewBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      let fileName = null;
+    // Show SweetAlert2 confirmation dialog
+    const result = await Swal.fire({
+      title: "Emin misiniz?",
+      text: "Blogu yayınlamak istediğinizden emin misiniz?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Evet, yayınla",
+      cancelButtonText: "Hayır, iptal et",
+    });
 
-      if (file) {
-        fileName = generateFileName(file);
-        const uploadedFileName = await uploadToSignedURL(file, fileName);
-        if (!uploadedFileName) throw new Error("Dosya yükleme başarısız.");
+    // If the user confirms, proceed with submission
+    if (result.isConfirmed) {
+      try {
+        let fileName = null;
+
+        if (file) {
+          fileName = generateFileName(file);
+          const uploadedFileName = await uploadToSignedURL(file, fileName);
+          if (!uploadedFileName) throw new Error("Dosya yükleme başarısız.");
+        }
+
+        const payload = {
+          title,
+          content,
+          author,
+          fileName, // Eğer dosya yüklenmediyse null olacak
+        };
+
+        const response = await fetch(`${BASE_URL}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          Swal.fire(
+            "Başarılı!",
+            "Blog başarılı bir şekilde yayınlandı.",
+            "success"
+          );
+          navigate("/");
+        } else {
+          console.error("Blog gönderimi başarısız.");
+          Swal.fire(
+            "Hata",
+            "Blogu yayınlama sırasında bir hata oluştu.",
+            "error"
+          );
+        }
+      } catch (error) {
+        console.error("Hata:", error);
+        Swal.fire("Hata", "Bir hata oluştu. Lütfen tekrar deneyin.", "error");
       }
-
-      const payload = {
-        title,
-        content,
-        author,
-        fileName, // Eğer dosya yüklenmediyse null olacak
-      };
-
-      const response = await fetch(`${BASE_URL}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        navigate("/");
-      } else {
-        console.error("Blog gönderimi başarısız.");
-      }
-    } catch (error) {
-      console.error("Hata:", error);
+    } else {
+      // If the user cancels, log the cancellation
+      console.log("Blog yayından kaldırıldı.");
     }
   };
+
   return (
     <div className="max-w-4xl p-6 mx-auto font-sans">
       <h1 className="mb-4 text-3xl">Yeni Blog Yaz</h1>
