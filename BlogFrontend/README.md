@@ -32,11 +32,11 @@ VITE_BASE_URL=<Uygulama temel URL'i>
 ```
 
 ```bash
-JWT_SECRET=<JWT için gizli anahtar>
+VITE_BASE_URL_USER=<user için base url>
 ```
 
 ```bash
-JWT_EXPIRATION=<JWT'nin süresi, örn: 1d>
+VITE_AWS_URL=<AWS s3 için bucket URL>
 ```
 
 ### Gerekli Modüllerin Yüklenmesi:
