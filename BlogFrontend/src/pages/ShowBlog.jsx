@@ -22,46 +22,56 @@ const ShowBlog = () => {
         pagination={{
           dynamicBullets: true,
         }}
+        loop={true}
         modules={[Pagination]}
         className="mySwiper">
-        {blogs.map((blog, index) => (
-          <SwiperSlide key={index} className="relative">
-            <Link to={`/blogs/${blog._id}`}>
-              <div className="relative w-full h-[768px]">
-                <img
-                  className="object-cover w-full h-full"
-                  src={`${AWS_URL}/${blog.fileName}`}
-                  alt={`Image ${index + 1}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-transparent"></div>
-              </div>
-            </Link>
-            <div className="relative">
-              <p className="absolute px-4 py-4 text-xl text-white bg-transparent rounded-full bg-opacity-10 backdrop-blur-3xl bottom-28 left-8">
-                {blog.author}
-              </p>
-
-              <p className="absolute px-4 text-2xl font-semibold text-white bg-opacity-50 rounded bottom-16 left-8">
-                {blog.title}
-              </p>
-
-              <p className="absolute px-4 py-2 text-xl text-white bg-transparent rounded-full bg-opacity-10 bottom-4 left-8">
-                {blog?.content?.substring(0, 60)}{" "}
+        {blogs.slice(-5).map(
+          (
+            blog,
+            index //Son 5 Blog Gözükecek
+          ) => (
+            <SwiperSlide key={index} className="relative">
+              <Link to={`/blogs/${blog._id}`}>
+                <div className="relative w-full h-[768px]">
+                  <img
+                    className="object-cover w-full h-full"
+                    src={`${AWS_URL}/${blog.fileName}`}
+                    alt={`Image ${index + 1}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-transparent"></div>
+                </div>
+              </Link>
+              <div className="relative">
                 <Link to={`/blogs/${blog._id}`}>
-                  <span className="text-sm font-light underline">
-                    Daha Fazla
-                  </span>
+                  <p className="absolute px-4 py-4 text-xl text-white bg-transparent rounded-full bg-opacity-10 backdrop-blur-3xl bottom-28 left-8">
+                    {blog.author}
+                  </p>
                 </Link>
-              </p>
-            </div>
-          </SwiperSlide>
-        ))}
+                <Link to={`/blogs/${blog._id}`}>
+                  <p className="absolute px-4 text-2xl font-semibold text-white bg-opacity-50 rounded bottom-16 left-8">
+                    {blog.title}
+                  </p>
+                </Link>
+                <Link to={`/blogs/${blog._id}`}>
+                  <p className="absolute px-4 py-2 text-xl text-white bg-transparent rounded-full bg-opacity-10 bottom-4 left-8">
+                    {blog?.content?.substring(0, 60)}{" "}
+                    <Link to={`/blogs/${blog._id}`}>
+                      <span className="text-sm font-light underline">
+                        Daha Fazla
+                      </span>
+                    </Link>
+                  </p>
+                </Link>
+              </div>
+            </SwiperSlide>
+          )
+        )}
       </Swiper>
       <div className="container mx-auto font-semibold">
-        <h1 className="py-3 mt-16 mb-4 text-3xl text-center text-zinc-800">
+        <h1 className="py-3 mt-16 mb-12 text-3xl font-extrabold text-center text-zinc-800">
           Bloglar
         </h1>
-
+        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
         <div className="grid grid-cols-1 gap-6 mb-10 sm:grid-cols-2 lg:grid-cols-3 ">
           {blogs
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))

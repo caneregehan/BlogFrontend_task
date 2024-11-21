@@ -8,6 +8,11 @@ router.get("/", async (req, res) => {
   res.json(blogs);
 });
 
+router.get("/latest", async (req, res) => {
+  const blogs = await Blog.find().sort({ createdAt: -1 }).limit(5);
+  res.json(blogs);
+});
+
 router.get("/:id", async (req, res) => {
   const blog = await Blog.findById(req.params.id);
   res.json(blog);

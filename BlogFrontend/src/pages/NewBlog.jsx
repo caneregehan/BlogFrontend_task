@@ -76,8 +76,7 @@ const NewBlog = () => {
         Swal.fire("Hata", "Bir hata oluştu. Lütfen tekrar deneyin.", "error");
       }
     } else {
-      // If the user cancels, log the cancellation
-      console.log("Blog yayından kaldırıldı.");
+      console.log("Blog yayınlanamadı.");
     }
   };
 
@@ -153,7 +152,7 @@ const NewBlog = () => {
 
         <button
           type="submit"
-          className="bg-gray-800 w-full text-white text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-gray-800 transition-all">
+          className="bg-gray-800 w-full text-white text-sm px-4 py-3.5 rounded-md  outline-gray-800 ">
           Yayınla
         </button>
       </form>
