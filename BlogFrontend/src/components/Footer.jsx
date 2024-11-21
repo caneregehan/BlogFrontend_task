@@ -8,7 +8,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="mt-5 bg-white rounded-lg shadow dark:bg-gray-800">
+    <footer className="mt-5 bg-white rounded-t-lg shadow dark:bg-gray-800">
       <div className="w-full max-w-screen-xl p-4 mx-auto md:flex md:items-center md:justify-between">
         <a href="/">
           <div className="flex justify-between gap-8 text-center">
