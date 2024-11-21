@@ -46,10 +46,9 @@ export default function Register() {
       });
 
       if (response.ok) {
-        const result = await response.json();
+        await response.json();
         toast.success("Kayıt başarılı!");
         navigate("/login");
-        console.log(result);
       } else {
         toast.error("Kayıt sırasında bir hata oluştu.");
       }
