@@ -54,8 +54,8 @@ const ShowBlog = () => {
                 </Link>
                 <Link to={`/blogs/${blog._id}`}>
                   <p className="absolute px-4 py-2 text-xl text-white bg-transparent rounded-full bg-opacity-10 bottom-4 left-8">
-                    {blog?.content?.substring(0, 60)}{" "}
-                    <span className="text-sm font-light underline">
+                    {blog?.content?.substring(0, 60)}...
+                    <span className="text-sm font-light underline ml-5">
                       Daha Fazla
                     </span>
                   </p>
