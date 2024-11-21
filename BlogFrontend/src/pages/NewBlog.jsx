@@ -53,7 +53,7 @@ const NewBlog = () => {
     }
   };
   return (
-    <div className="container pt-20 mx-auto">
+    <div className="max-w-4xl p-6 mx-auto font-sans">
       <h1 className="mb-4 text-3xl">Yeni Blog Yaz</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -61,7 +61,7 @@ const NewBlog = () => {
           placeholder="Başlık"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
           required
         />
 
@@ -69,7 +69,7 @@ const NewBlog = () => {
           placeholder="İçerik"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
           required
         />
         <input
@@ -77,7 +77,7 @@ const NewBlog = () => {
           placeholder="Yazar"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
           required
         />
 
@@ -109,7 +109,7 @@ const NewBlog = () => {
                     setFile(selectedFile);
                   }}
                 />
-                <div className="flex flex-col items-center justify-center px-2 mx-auto text-xs font-semibold leading-4 text-white bg-indigo-600 rounded-full shadow cursor-pointer w-28 h-9 focus:outline-none">
+                <div className="flex flex-col items-center justify-center px-2 mx-auto text-xs font-semibold leading-4 text-white bg-gray-800 rounded-full shadow cursor-pointer w-28 h-9 focus:outline-none">
                   Choose File
                 </div>
                 <div>
@@ -124,7 +124,7 @@ const NewBlog = () => {
 
         <button
           type="submit"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          className="bg-gray-800 w-full text-white text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-gray-800 transition-all">
           Yayınla
         </button>
       </form>

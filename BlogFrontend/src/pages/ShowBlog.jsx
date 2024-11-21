@@ -76,7 +76,12 @@ const ShowBlog = () => {
                       alt={blog.title}
                       className="object-fill w-full h-[270px] rounded-t-lg"
                     />
-                    <p className="absolute px-2 py-1 text-white bg-black bg-opacity-50 rounded top-2 left-2">
+                    <p className="absolute flex items-center px-2 py-1 text-white bg-black bg-opacity-50 rounded top-2 left-2">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/8188/8188338.png"
+                        alt="Author Icon"
+                        className="object-contain w-4 h-4 mr-2 bg-gray-50 rounded-3xl"
+                      />
                       {blog.author}
                     </p>
                   </div>

@@ -46,6 +46,8 @@ const getNavbarComponent = (location) => {
   const isValidRoute = definedRoutes.some((route) =>
     route === "/blogs"
       ? location.pathname.startsWith("/blogs")
+      : route === "/update"
+      ? location.pathname.startsWith("/update")
       : route === location.pathname
   );
 
@@ -54,6 +56,10 @@ const getNavbarComponent = (location) => {
   }
 
   if (location.pathname.startsWith("/blogs")) {
+    return <OtherNavbar />;
+  }
+
+  if (location.pathname.startsWith("/update")) {
     return <OtherNavbar />;
   }
 

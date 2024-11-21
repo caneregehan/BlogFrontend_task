@@ -19,20 +19,30 @@ const BlogDetail = () => {
   if (!blog) return <div>Loading...</div>;
 
   return (
-    <div className="container p-4 mx-auto ">
-      <div className="pt-16 mx-auto">
-        <img
-          src={`${AWS_URL}/${blog.fileName}`}
-          alt={blog.title}
-          className="object-cover w-full h-[540px]"
-        />
-        <h1 className="pt-16 mb-4 text-3xl text-center">{blog.title}</h1>
-        <p className="text-center">{blog.content}</p>
+    <div className="flex flex-col px-16 mx-auto ">
+      <div className="flex justify-between my-8">
+        <h1 className="text-3xl text-left ">{blog.title}</h1>
+        <h1 className="self-start text-xl">
+          {new Date(blog.createdAt).getDate().toString().padStart(2, "0")}.
+          {(new Date(blog.createdAt).getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}
+          .{new Date(blog.createdAt).getFullYear()}
+        </h1>
       </div>
 
-      <p className="pt-12">
+      <img
+        src={`${AWS_URL}/${blog.fileName}`}
+        alt={blog.title}
+        className="object-cover w-full h-[540px]"
+      />
+      <p>
         <strong>Yazar:</strong> {blog.author}
       </p>
+      <div className="pt-16 mx-auto">
+        <p className="text-justify">{blog.content}</p>
+      </div>
+
       <div className="flex mt-5 mb-48">
         <Link
           to="/"

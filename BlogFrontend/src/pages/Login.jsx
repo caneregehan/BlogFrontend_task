@@ -83,19 +83,6 @@ export default function Login() {
           </div>
           <div className="mb-4">
             <input
-              type="text"
-              id="mail"
-              name="mail"
-              placeholder="Mail Adresiniz"
-              value={formData.mail}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-500"
-              autoComplete="off"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <input
               type="password"
               id="password"
               name="password"
