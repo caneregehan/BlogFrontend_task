@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const BASE_URL = import.meta.env.VITE_BASE_URL_USER; // Base URL for the backend
@@ -24,7 +26,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirm_password) {
-      alert("Şifreler uyuşmuyor!");
+      toast.error("Şifreler uyuşmuyor!");
       return;
     }
 
@@ -45,15 +47,15 @@ export default function Register() {
 
       if (response.ok) {
         const result = await response.json();
-        alert("Kayıt başarılı!");
+        toast.success("Kayıt başarılı!");
         navigate("/login");
         console.log(result);
       } else {
-        alert("Kayıt sırasında bir hata oluştu.");
+        toast.error("Kayıt sırasında bir hata oluştu.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Bir hata oluştu.");
+      toast.error("Bir hata oluştu.");
     }
   };
 

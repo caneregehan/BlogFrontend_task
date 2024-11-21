@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -19,37 +21,6 @@ export default function Login() {
       [name]: value,
     }));
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     // POST isteği gönderiliyor
-  //     const response = await fetch(`${BASE_URL}/login`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-
-  //       if (result.status) {
-  //         alert("Giriş başarılı!");
-  //         navigate("/");
-  //       } else {
-  //         setError("Kullanıcı adı veya şifre yanlış.");
-  //       }
-  //     } else {
-  //       setError("Kullanıcı adı veya şifre yanlış.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     setError("Sunucuya bağlanırken bir hata oluştu.");
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,8 +42,8 @@ export default function Login() {
           // JWT token'ı localStorage'a kaydet
           localStorage.setItem("authToken", result.token);
 
-          alert("Giriş başarılı!");
-          navigate("/"); // Başarılı giriş sonrası anasayfaya yönlendir
+          toast.success("Başarıyla giriş yaptınız.");
+          navigate("/");
         } else {
           setError("Kullanıcı adı veya şifre yanlış.");
         }

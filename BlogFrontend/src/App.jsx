@@ -75,7 +75,6 @@ const AppContent = () => {
     <>
       {getNavbarComponent(location)}{" "}
       <Routes>
-        {/* Protected Routes */}
         <Route
           path="/admin"
           element={<PrivateRoute element={<AdminPage />} />}
@@ -86,20 +85,17 @@ const AppContent = () => {
           element={<PrivateRoute element={<UpdateBlog />} />}
         />
 
-        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<ShowBlog />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
 
-        {/* 404 Not Found Route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
 };
 
-// Uygulama Genel Yapısı
 const App = () => {
   return (
     <Router>
