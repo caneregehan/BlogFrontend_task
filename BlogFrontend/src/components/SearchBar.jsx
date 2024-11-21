@@ -58,7 +58,7 @@ const BlogDropdown = () => {
         value={searchQuery}
         onChange={handleSearchChange}
         className="p-1 pr-12 pl-5 text-xl backdrop-blur-3xl backdrop-brightness-30 text-white placeholder:text-gray-200  bg-transparent border border-[#8197a3] rounded-xl w-full"
-        placeholder="Search for blog"
+        placeholder="Blog Ara.."
       />
 
       {/* Dropdown Listesi */}
