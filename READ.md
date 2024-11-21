@@ -1,2 +1,1 @@
 Bu proje, blog ekleme, silme, güncelleme işlemleri ve kullanıcı yönetimi gibi temel işlevleri içeren bir web uygulamasıdır. React.js ile geliştirilmiş frontend ve Node.js tabanlı bir backend kullanılarak oluşturulmuştur.
-
